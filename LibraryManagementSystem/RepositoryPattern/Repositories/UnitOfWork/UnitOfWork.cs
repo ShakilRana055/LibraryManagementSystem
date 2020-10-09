@@ -19,6 +19,7 @@ namespace LibraryManagementSystem.RepositoryPattern.Repositories.UnitOfWork
             Book = new BookRepository(context);
             User = new UserRepository(context);
             Student = new StudentRepository(context);
+            ShelfCreate = new ShelfCreateRepository(context);
         }
 
         #region Base Method
@@ -37,6 +38,7 @@ namespace LibraryManagementSystem.RepositoryPattern.Repositories.UnitOfWork
         public IBookRepository Book { get; private set; }
         public IUserRepository User { get; private set; }
         public IStudentRepository Student { get; private set; }
+        public IShelfCreateRepository ShelfCreate { get; private set; }
         #endregion
     }
 }
