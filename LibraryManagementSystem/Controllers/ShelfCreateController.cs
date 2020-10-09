@@ -49,7 +49,7 @@ namespace LibraryManagementSystem.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ShelfCreate>> DeleteStudent(int id)
+        public async Task<ActionResult<ShelfCreate>> DeleteShelfCreate(int id)
         {
             var result = await context.ShelfCreate.GetFirstOrDefault(item => item.Id == id);
             if (result == null)
@@ -60,7 +60,7 @@ namespace LibraryManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ShelfCreate>> PostStudent(ShelfCreate shelfCreate)
+        public async Task<ActionResult<ShelfCreate>> PostShelfCreate(ShelfCreate shelfCreate)
         {
             if (shelfCreate == null)
                 return BadRequest();
