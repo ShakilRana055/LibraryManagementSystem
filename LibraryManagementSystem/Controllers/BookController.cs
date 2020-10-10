@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagementSystem.EntityModel;
+using LibraryManagementSystem.Model;
 using LibraryManagementSystem.RepositoryPattern.Interfaces.IUnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace LibraryManagementSystem.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Book>> UpdateBook(int id, Book book)
+        public async Task<ActionResult<Book>> UpdateBook(int id, BookVm book)
         {
             var result = await context.Book.GetFirstOrDefault(item => item.Id == id);
             if (result == null)
@@ -44,7 +45,7 @@ namespace LibraryManagementSystem.Controllers
 
             result.Name = book.Name;
             result.Code = book.Code;
-            result.NumberOfCopies = book.NumberOfCopies;
+            result.NumberOfCopies = Convert.ToInt32 (book.NumberOfCopies);
             result.Author = book.Author;
             result.Publication = book.Publication;
             result.Description = book.Description;
@@ -65,13 +66,21 @@ namespace LibraryManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public async Task<ActionResult<Book>> PostBook(BookVm bookVm)
         {
-            if (book == null)
+            if (bookVm == null)
                 return BadRequest();
-            
-            book.CreatedDate = System.DateTime.Now;
-            book.AvailableQuantity = book.NumberOfCopies;
+
+            Book book = new Book()
+            {
+                Name = bookVm.Name,
+                Code = bookVm.Code,
+                NumberOfCopies = Convert.ToInt32(bookVm.NumberOfCopies),
+                Author = bookVm.Author,
+                Publication = bookVm.Publication,
+                Description = bookVm.Description,
+                AvailableQuantity = Convert.ToInt32(bookVm.NumberOfCopies),
+            };
             context.Book.Save(book);
             await context.Save();
             return book;
