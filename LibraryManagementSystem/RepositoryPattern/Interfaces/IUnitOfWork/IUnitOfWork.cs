@@ -13,5 +13,6 @@ namespace LibraryManagementSystem.RepositoryPattern.Interfaces.IUnitOfWork
         IUserRepository User { get; }
         IStudentRepository Student { get; }
         IShelfCreateRepository ShelfCreate { get; }
+        IShelfSetupRepository ShelfSetup { get; }
     }
 }
